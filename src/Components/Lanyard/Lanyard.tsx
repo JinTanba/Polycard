@@ -121,7 +121,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
   };
 
   const { nodes, materials } = useGLTF('/card.glb', true) as any;
-  const texture = useTexture("./lanyard.png");
+  const texture = useTexture("https://upload.wikimedia.org/wikipedia/commons/7/75/Company_Logo_Polymarket.png");
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([
