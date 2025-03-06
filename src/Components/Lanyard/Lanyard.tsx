@@ -29,7 +29,7 @@ import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
 import CircularText from "../../TextAnimations/CircularText/CircularText";
 
-extend({ MeshLineGeometry, MeshLineMaterial });
+extend({ meshLineGeometry: MeshLineGeometry, meshLineMaterial: MeshLineMaterial });
 
 interface LanyardProps {
   position?: [number, number, number];
@@ -132,7 +132,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
   );
   const [dragged, drag] = useState<false | THREE.Vector3>(false);
   const [hovered, hover] = useState(false);
-  const [username] = useState("田場 仁太郎"); // ユーザー名を設定
+  const [username] = useState("satoshi"); // ユーザー名を設定
   
   // カードクリック時のイベントハンドラ
   const onCardClick = () => {
@@ -279,32 +279,46 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
                 map={materials.base.map}
                 map-anisotropy={16}
                 clearcoat={1}
-                clearcoatRoughness={0}
+                clearcoatRoughness={0.15}
+                roughness={0.9}
+                metalness={0.8}
               />
             </mesh>
+            <mesh
+              geometry={nodes.clip.geometry}
+              material={materials.metal}
+              material-roughness={0.3}
+            />
+            <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
 
             {/* カード上に重ねるHTMLコンポーネント - 位置をさらに上に調整 */}
             <Html
               transform
               rotation={[0, Math.PI, 0]} // 裏返り防止
-              position={[0, 0.5, 0.051]} // 位置をさらに上に調整
+              position={[0, 0.5, 0.051]} // 位置をさらnに上に調整
               occlude={false}
               distanceFactor={1.4}
               style={{
                 width: '180px', // サイズをさらに小さく
                 height: '240px', // サイズをさらに小さく
-                pointerEvents: 'auto'
+                pointerEvents: 'auto',
+                transformStyle: 'preserve-3d'
+                // backfaceVisibilityを削除してテキストが反転するようにする
               }}
             >
-              <div className="w-full h-full bg-white rounded-xl flex flex-col items-center justify-center">
-                {/* CircularTextを配置 - 中央にグラデーション球体 */}
+              <div className="w-full h-full bg-white rounded-xl flex flex-col items-center justify-center relative">
+                {/* CircularTextとアバター画像を中央に配置 */}
                 <div className="w-full flex justify-center items-center relative">
-                  <div className="absolute z-10 w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 shadow-lg"></div>
+                  <img
+                    src="https://cdn.discordapp.com/avatars/714402641991565332/b2d7d2d1f607bd577857e432eba96861.webp?size=128"
+                    alt="Avatar"
+                    className="z-10 w-16 h-16 rounded-full shadow-lg"
+                  />
                   <CircularText
-                    text="------------------------"
+                    text="FuckYouPolymarketGetOutFromEVM"
                     spinDuration={15}
                     onHover="speedUp"
-                    className="scale-45 text-gray-600"
+                    className="scale-45 text-gray-600 absolute"
                   />
                 </div>
               </div>
