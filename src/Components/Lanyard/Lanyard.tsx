@@ -29,7 +29,7 @@ import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
 import CircularText from "../../TextAnimations/CircularText/CircularText";
 
-extend({ meshLineGeometry: MeshLineGeometry, meshLineMaterial: MeshLineMaterial });
+extend({ MeshLineGeometry, MeshLineMaterial });
 
 interface LanyardProps {
   position?: [number, number, number];
@@ -299,26 +299,26 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
               occlude={false}
               distanceFactor={1.4}
               style={{
-                width: '180px', // サイズをさらに小さく
+                width: '200px', // サイズをさらに小さく
                 height: '240px', // サイズをさらに小さく
                 pointerEvents: 'auto',
                 transformStyle: 'preserve-3d'
                 // backfaceVisibilityを削除してテキストが反転するようにする
               }}
             >
-              <div className="w-full h-full bg-white rounded-xl flex flex-col items-center justify-center relative">
+              <div className="w-full h-full bg-gray-100 rounded-xl flex flex-col items-center justify-center relative shadow-md">
                 {/* CircularTextとアバター画像を中央に配置 */}
                 <div className="w-full flex justify-center items-center relative">
                   <img
                     src="https://cdn.discordapp.com/avatars/714402641991565332/b2d7d2d1f607bd577857e432eba96861.webp?size=128"
                     alt="Avatar"
-                    className="z-10 w-16 h-16 rounded-full shadow-lg"
+                    className="z-10 w-16 h-16 rounded-full shadow-lg ring-2 ring-gray-300"
                   />
                   <CircularText
                     text="FuckYouPolymarketGetOutFromEVM"
                     spinDuration={15}
                     onHover="speedUp"
-                    className="scale-45 text-gray-600 absolute"
+                    className="scale-45 text-gray-700 absolute"
                   />
                 </div>
               </div>
